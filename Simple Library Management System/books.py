@@ -6,7 +6,7 @@ class Books :
     # 1 Add a new book.
     def add_new_books () :
         try :
-            f = "python-05/Simple Library Management System/books.json"
+            f = "Simple Library Management System/books.json"
             try :    
                 book_name = input("Enter books name : ")
                 if book_name :
@@ -38,7 +38,7 @@ class Books :
     def view_available_books () :
 
         try :
-            f = open("python-05/Simple Library Management System/books.json","r+")
+            f = open("Simple Library Management System/books.json","r+")
             books = json.load(f)
             if books :
                 print("\t")
@@ -56,26 +56,42 @@ class Books :
     def checked_in_books():
 
         try :
-            f = "python-05/Simple Library Management System/books.json"
-            member_file = "python-05/Simple Library Management System/members.json"
+            f = "Simple Library Management System/books.json"
+            library_file = "Simple Library Management System/library.json"
             try :
                 print("You want to checked In : ")
                 book_name = input("Enter book name  : ")
                 member_name = input("Enter member name  : ")
 
                 if book_name and member_name :
-                    with open(f,'r+') as book:
+                    with open(f,'r+') as book  :
                         book_data = json.load(book)
                         isChecked = 1
                         date = datetime.datetime.now()
                         for x in book_data :
-                            
                             if x["name"] == book_name :
                                 x["isChecked"] = isChecked
                                 x["isCheckedAt"] = str(date.date())
-
                         book.seek(0)
                         json.dump(book_data, book, indent = 7)
+
+                    with open(library_file,'r+') as library  :
+                        library_data = json.load(library)
+                        id = 1
+                        isChecked=1
+                        date = datetime.datetime.now()
+                        if library_data :
+                            id= len(library_data)+1
+                        new_data = {
+                                    "id":id,
+                                    "book_name":book_name,
+                                    "member_name":member_name,
+                                    "isChecked": isChecked,
+                                    "addedAt":str(date.date()),
+                                    }
+                        library_data.append(new_data)
+                        library.seek(0)
+                        json.dump(new_data, library, indent = 7)
                         print(f"{book_name} has checked successfully")
             except : 
                 print("Unable to write file")
@@ -87,10 +103,12 @@ class Books :
     def checked_out_books():
 
         try :
-            f = "python-05/Simple Library Management System/books.json"
+            f = "Simple Library Management System/books.json"
+            library_file = "Simple Library Management System/library.json"
             try :
                 print("You want to checked Out : ")
-                book_name = input("Enter book name : ")
+                book_name = input("Enter book name  : ")
+                member_name = input("Enter member name  : ")
                 with open(f,'r+') as file:
                     book_data = json.load(file)
                     isChecked = 0
@@ -99,7 +117,13 @@ class Books :
                             x["isChecked"] = isChecked
                             x["isCheckedAt"] = 0
                     file.seek(0)
-                    json.dump(book_data, file, indent = 7)
+                    json.dump(book_data, file, indent = 8)
+
+                with open(library_file,'r+') as file:
+                    library_data = json.load(file)
+                    for x in library_data :
+                        if x["book_name"] == book_name and x["member_name"] == member_name :
+                            library_data.pop(x)
                     print(f"{book_name} has checked out successfully")
             except : 
                 print("Unable to write file")
@@ -112,7 +136,7 @@ class Books :
     def show_checked_books () :
 
         try :
-            f = open("python-05/Simple Library Management System/books.json","r+")
+            f = open("Simple Library Management System/books.json","r+")
             books = json.load(f)
             if books: 
                 print("\t")
