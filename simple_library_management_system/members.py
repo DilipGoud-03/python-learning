@@ -7,7 +7,7 @@ class Members:
 # 2 Add a new Member
     def add_new_members () :
         try : 
-            f ="Simple Library Management System/members.json"
+            f ="simple_library_management_system/members.json"
             try :    
                 with open(f,'r+') as file:
                     first_name  = input("Enter Member first name : ")
@@ -39,7 +39,7 @@ class Members:
 # 3 View all members
     def view_all_members () :
         try :
-            f = open("Simple Library Management System/members.json","r+")
+            f = open("simple_library_management_system/members.json","r+")
             try:
                 meembers = json.load(f)
                 print("\t")

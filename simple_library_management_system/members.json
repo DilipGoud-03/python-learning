@@ -1,0 +1,23 @@
+[
+       {
+              "id": 1,
+              "first_name": "Dilip",
+              "last_name": "Goud",
+              "age": "23",
+              "addedAt": "2024-05-13"
+       },
+       {
+              "id": 2,
+              "first_name": "Ram",
+              "last_name": "Rathod",
+              "age": "17",
+              "addedAt": "2024-05-13"
+       },
+       {
+              "id": 3,
+              "first_name": "dsdjh",
+              "last_name": "sjd",
+              "age": "3",
+              "addedAt": "2024-05-13"
+       }
+]
